@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入react开发包-->
+    <script src="js/react.development.js"></script>
+    <!--引入 react-dom 开发包-->
+    <script src="js/react-dom.development.js"></script>
+    <!--引入 babel es6转换包-->
+    <script src="babel.min.js"></script>
+    <script src="js/data.js"></script>
+    <style>
+        .vip{
+            color: red;
+        }
+        .panel{
+            border: 1px solid #000000;
+        }
+        h2 {
+            background-color: #aaaaaa;
+            height: 40px;
+
+        }
+    </style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<!--<Panel>-->
+    <!--<group>-->
+        <!--<list></list>-->
+    <!--</group>-->
+    <!--<group>-->
+        <!--<list></list>-->
+    <!--</group>-->
+    <!--<group>-->
+        <!--<list></list>-->
+    <!--</group>-->
+<!--</Panel>-->
+
+<script type="text/babel">
+
+    /**
+     * 使用es6 的类作为组件
+     */
+    class Panel extends React.Component {
+
+      constructor(props){
+        super(props)
+      }
+
+      render() {
+        const { data } = this.props;
+
+        return (
+          <div className="panel">
+            {
+              /**
+               * @description 循环对象
+               */
+              Object.keys(data).map((item,index)=>{
+                return <Group key={index} data={data[item]}/>
+              })
+            }
+          </div>
+        )
+      }
+    }
+
+    class Group extends React.Component {
+
+      constructor(props){
+        super(props)
+      }
+
+      render() {
+        const { name,list } = this.props.data;
+
+        return (
+          <div>
+              <h2>{name}</h2>
+              <ul>
+                {
+                  list.map((item,index)=>{
+                    return <List key={index} data={item}/>
+                  })
+                }
+              </ul>
+          </div>
+        )
+      }
+    }
+
+    class List extends React.Component {
+
+      constructor(props){
+        super(props)
+      }
+
+      render() {
+        const { username, message ,vip} = this.props.data;
+        return (
+          <li>
+              <p className={vip?'vip':''}>用户名：{username}</p>
+              <p>信息：{message}</p>
+          </li>
+        )
+      }
+    }
+
+  ReactDOM.render(
+     <Panel data={dataList}>
+     </Panel>,
+      document.getElementById("app")
+    )
+</script>
+</body>
+</html>

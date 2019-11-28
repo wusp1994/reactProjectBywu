@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--引入react开发包-->
+    <script src="js/react.development.js"></script>
+    <!--引入 react-dom 开发包-->
+    <script src="js/react-dom.development.js"></script>
+    <!--引入 babel es6转换包-->
+    <script src="babel.min.js"></script>
+    <script src="data.js"></script>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script type="text/babel">
+
+    class Main extends React.Component{
+      constructor(props){
+        super(props)
+        this.bookType = "新书速递"
+      }
+
+      render(){
+        const { books } = this.props;
+
+        return (
+          <div className="main">
+            <h2 className="tit">{this.bookType}</h2>
+            {
+              books.map((book,index)=>{
+                return (
+                      <Book
+                        key={index}
+                        book={book}>
+                      </Book>
+                  )
+              })
+            }
+
+          </div>
+        )
+      }
+    }
+
+    class Book extends React.Component{
+      constructor(props){
+        super(props)
+      }
+
+      render(){
+        const { book } = this.props;
+        // console.log(book)
+
+        return (
+          <div className="booksItem">
+              <div className="imgBox">
+                <img src={book.image} />
+              </div>
+              <div className="content">
+                  <b >{book.title}</b>
+                  <p className="author">{book.publisher}/{book.translator}{book.pubdate}</p>
+                  <p className="introduction">{book.summary}</p>
+              </div>
+          </div>
+        )
+      }
+    }
+
+
+    ReactDOM.render(
+      <Main books={books}>
+
+      </Main>,
+      document.getElementById("app")
+    )
+</script>
+
+</body>
+</html>
