@@ -1,0 +1,11 @@
+.btn{
+    border-color: blue;
+    background: aquamarine;
+    color: aliceblue;
+    margin-left: 10px;
+}
+
+.child{
+    cursor:pointer;
+
+}
