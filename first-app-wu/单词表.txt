@@ -1,1 +1,1 @@
-Square : 正方形
+Square : 正方形.
